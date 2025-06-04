@@ -2,9 +2,11 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+{{- if eq .chezmoi.hostname "p14s-pop" }}
 set -x PATH $PATH /opt/nvim/
 
 nvm use lts
+{{- end }}
 
 # Undo the last commit but keep changes staged
 abbr -a gundo 'git reset --soft HEAD~1'
@@ -75,8 +77,10 @@ abbr -a gbranches 'git branch --sort=-committerdate'
 # Show detailed last commit
 abbr -a glast 'git log -1 --stat'
 
+{{- if eq .chezmoi.hostname "p14s-pop" }}
 fish_add_path /opt/bitwarden
 fish_add_path /opt/keymapp
+{{- end }}
 
 # Get local user password from Bitwarden
 abbr -a bwpass 'bw get password "lukae local user" | xclip -selection clipboard'
@@ -84,6 +88,7 @@ abbr -a bwpass 'bw get password "lukae local user" | xclip -selection clipboard'
 # Generate TOTP using secret stored in $OATHTOOL_SECRET (set in conf.d/private.fish)
 abbr -a oath 'oathtool --totp -b "$OATHTOOL_SECRET" | xclip -selection clipboard'
 
+{{- if eq .chezmoi.hostname "p14s-pop" }}
 fish_add_path /home/lukaernestini/.dotnet/tools
 # pnpm
 set -gx PNPM_HOME "/home/lukaernestini/.local/share/pnpm"
@@ -91,3 +96,4 @@ if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+{{- end }}
