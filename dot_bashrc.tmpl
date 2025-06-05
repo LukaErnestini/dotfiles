@@ -123,6 +123,8 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+export PATH="/opt/nvim/bin:$PATH"
+
 {{- if eq .chezmoi.hostname "dan-pop" }}
 # Auto-switch to fish if we're in an interactive terminal
 if [[ $- == *i* ]] && [[ -z "$FISH_LAUNCHED" ]]; then
